@@ -1,0 +1,16 @@
+$kind: http-request
+method: DELETE
+url: '{{baseUrl}}/api/dramas/999999'
+order: 6000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 404", function () {
+          pm.response.to.have.status(404);
+      });
+
+      pm.test("Response has error message", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property('message');
+      });

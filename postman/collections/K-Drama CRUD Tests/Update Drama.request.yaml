@@ -1,0 +1,39 @@
+$kind: http-request
+method: PUT
+url: '{{baseUrl}}/api/dramas/{{dramaId}}'
+order: 3000
+body:
+  type: json
+  content: |-
+    {
+      "title": "Crash Landing on You (Updated)",
+      "episodes": 16,
+      "description": "Updated description: A South Korean heiress accidentally paraglides into North Korea.",
+      "quote": "Love knows no borders."
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has correct fields", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property('id');
+          pm.expect(jsonData).to.have.property('title');
+          pm.expect(jsonData).to.have.property('episodes');
+          pm.expect(jsonData).to.have.property('description');
+          pm.expect(jsonData).to.have.property('quote');
+      });
+
+      pm.test("Title is updated", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData.title).to.eql("Crash Landing on You (Updated)");
+      });
+
+      pm.test("Quote is updated", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData.quote).to.eql("Love knows no borders.");
+      });

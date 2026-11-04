@@ -1,0 +1,16 @@
+$kind: http-request
+method: DELETE
+url: '{{baseUrl}}/api/dramas/{{dramaId}}'
+order: 5000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Deleted drama has correct id", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData.id).to.eql(pm.collectionVariables.get("dramaId"));
+      });

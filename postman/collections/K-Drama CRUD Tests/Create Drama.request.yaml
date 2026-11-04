@@ -1,0 +1,45 @@
+$kind: http-request
+method: POST
+url: '{{baseUrl}}/api/dramas'
+order: 2000
+body:
+  type: json
+  content: |-
+    {
+      "title": "Crash Landing on You",
+      "episodes": 16,
+      "description": "A South Korean heiress accidentally paraglides into North Korea and falls in love with a North Korean officer.",
+      "quote": "I will protect you, no matter what."
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response has correct fields", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property('id');
+          pm.expect(jsonData).to.have.property('title');
+          pm.expect(jsonData).to.have.property('episodes');
+          pm.expect(jsonData).to.have.property('description');
+          pm.expect(jsonData).to.have.property('quote');
+      });
+
+      pm.test("Title matches request", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData.title).to.eql("Crash Landing on You");
+      });
+
+      pm.test("Episodes matches request", function () {
+          const jsonData = pm.response.json();
+          pm.expect(jsonData.episodes).to.eql(16);
+      });
+
+      // Save the created ID for use in update and delete
+      if (pm.response.code === 201) {
+          const jsonData = pm.response.json();
+          pm.collectionVariables.set("dramaId", jsonData.id);
+      }

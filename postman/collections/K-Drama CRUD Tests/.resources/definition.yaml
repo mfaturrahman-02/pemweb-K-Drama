@@ -1,0 +1,5 @@
+$kind: collection
+description: Collection untuk testing operasi CRUD pada API K-Drama
+variables:
+  baseUrl: http://localhost:3000
+  dramaId: ""

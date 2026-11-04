@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koleksi Drama Korea Favorit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="topbar">
+    <span class="wordmark"><span class="dot"></span>K-Drama</span>
+    <span class="topbar-note">Koleksi pribadi</span>
+  </div>
+
+  <header class="header">
+    <h1>Koleksi K-Drama Terbaik</h1>
+    <p>Daftar drama Korea pilihan beserta deskripsi, jumlah episode, dan kutipan terbaiknya.</p>
+  </header>
+
+  <main class="container">
+    <section class="form-section">
+      <h2 id="form-title">Tambah Drama Baru</h2>
+      <form id="drama-form">
+        <input type="hidden" id="drama-id">
+
+        <div class="form-group">
+          <label for="title">Judul Drama</label>
+          <input type="text" id="title" placeholder="Contoh: Daily Dose of Sunshine" required>
+        </div>
+
+        <div class="form-group">
+          <label for="episodes">Jumlah Episode</label>
+          <input type="number" id="episodes" min="1" placeholder="Contoh: 12" required>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Deskripsi Singkat</label>
+          <textarea id="description" rows="3" placeholder="Tuliskan sinopsis atau deskripsi drama..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="quote">Quote Terbaik</label>
+          <textarea id="quote" rows="2" placeholder="Tuliskan kutipan paling berkesan dari drama ini..." required></textarea>
+        </div>
+
+        <div class="form-buttons">
+          <button type="submit" id="submit-btn" class="btn btn-primary">Simpan Drama</button>
+          <button type="button" id="cancel-btn" class="btn btn-secondary hidden">Batal Edit</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="cards-section">
+      <div class="section-header">
+        <h2>Daftar Kartu Drama</h2>
+      </div>
+      <div id="drama-list" class="card-grid">
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
